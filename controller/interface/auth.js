@@ -33,8 +33,8 @@ exports.postNameUser = function(req, res, next) {
 
 exports.postIDUser = function(req, res, next) {
   console.log('postIDUser');
-  var id = req.body.id;
-  relational.getIDUser(id, function (error, u) {
+  var idUser = req.body.idUser;
+  relational.getIDUser(idUser, function (error, u) {
     if (error) {
       res.end(error);
     } else {
