@@ -5,6 +5,7 @@
  */
 var relational = require('../../model/relational.js');
 var properties = require('../properties.js');
+var http = require('http');
 
 exports.postNamePasswordUser = function(req, res, next) {
   console.log('postNamePasswordUser');
@@ -12,9 +13,16 @@ exports.postNamePasswordUser = function(req, res, next) {
   var password = req.body.password;
   relational.getNamePasswordUser(name, password, function (error, u) {
     if (error) {
-      res.end(error);
+      console.log(error);
+      var status = 401;
+      res.status(status).end(http.STATUS_CODES[status]);
     } else {
-      res.end(JSON.stringify(u));
+      if(u) {
+        res.end(JSON.stringify(u));
+      } else {
+        var status = 401;
+        res.status(status).end(http.STATUS_CODES[status]);
+      }
     }
   });
 };
@@ -24,7 +32,9 @@ exports.postNameUser = function(req, res, next) {
   var name = req.body.name;
   relational.getNameUser(name, function (error, u) {
     if (error) {
-      res.end(error);
+      console.log(error);
+      var status = 401;
+      res.status(status).end(http.STATUS_CODES[status]);
     } else {
       res.end(JSON.stringify(u));
     }
@@ -36,9 +46,16 @@ exports.postIDUser = function(req, res, next) {
   var idUser = req.body.idUser;
   relational.getIDUser(idUser, function (error, u) {
     if (error) {
-      res.end(error);
+      console.log(error);
+      var status = 401;
+      res.status(status).end(http.STATUS_CODES[status]);
     } else {
-      res.end(JSON.stringify(u));
+      if(u) {
+        res.end(JSON.stringify(u));
+      } else {
+        var status = 401;
+        res.status(status).end(http.STATUS_CODES[status]);
+      }
     }
   });
 };
@@ -46,12 +63,18 @@ exports.postIDUser = function(req, res, next) {
 exports.postClient = function(req, res, next) {
   console.log('postClient');
   var identification = req.body.identification;
-  relational.getClient(identification, function (error, client) {
+  relational.getClient(identification, function (error, c) {
     if (error) {
-      res.end(error);
+      console.log(error);
+      var status = 401;
+      res.status(status).end(http.STATUS_CODES[status]);
     } else {
-      console.log(JSON.stringify(client));
-      res.end(JSON.stringify(client));
+      if(c) {
+        res.end(JSON.stringify(c));
+      } else {
+        var status = 401;
+        res.status(status).end(http.STATUS_CODES[status]);
+      }
     }
   });
 };
@@ -62,7 +85,9 @@ exports.postToken = function(req, res, next) {
   if(key != undefined && key != null) {
     relational.getToken(key, function (error, token) {
       if (error) {
-        res.end(error);
+        console.log(error);
+        var status = 401;
+        res.status(status).end(http.STATUS_CODES[status]);
       } else {
         res.end(JSON.stringify(token));
       }
@@ -73,7 +98,9 @@ exports.postToken = function(req, res, next) {
     var idClient = req.body.idClient;
     relational.setToken(token, idUser, idClient, function (error, token) {
       if (error) {
-        res.end(error);
+        console.log(error);
+        var status = 401;
+        res.status(status).end(http.STATUS_CODES[status]);
       } else {
         res.end(JSON.stringify(token));
       }
@@ -87,7 +114,9 @@ exports.postCode = function(req, res, next) {
   if(key != undefined && key != null) {
     relational.getCode(key, function (error, code) {
       if (error) {
-        res.end(error);
+        console.log(error);
+        var status = 401;
+        res.status(status).end(http.STATUS_CODES[status]);
       } else {
         res.end(JSON.stringify(code));
       }

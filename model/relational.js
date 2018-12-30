@@ -11,21 +11,21 @@ exports.getNamePasswordUser = function(name, password, callback) {
   console.log("relational.getNamePasswordUser")
   this.getNameUser(name, function(err, user) {
     if (err) {
-      //return callback(err, null);
-      return callback(null,null);
+      return callback(err, null);
     } else {
+      console.log("bcrypt start)))))))))))))))))))))))))))))))))");
       bcrypt.compare(password, user.password, function(err, result) {
+        console.log("bcrypt compare");
         if (err) {
           return callback(err, null);
+        }
+        if (result) {
+          // return callback(null, user);
+          database.getQueryResult(sql.updateUserLogin(user), function(err, result, fields) {
+            return callback(null,user);
+          });
         } else {
-          if (result) {
-            return callback(null, user);
-            database.getQueryResult(sql.updateUserLogin(user), function(err, result, fields) {
-              return callback(err,user);
-            });
-          } else {
-            return callback(null, null);
-          }
+          return callback(err, null);
         }
       });
     }
