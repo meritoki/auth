@@ -7,6 +7,20 @@ var relational = require('../../model/relational.js');
 var properties = require('../properties.js');
 var http = require('http');
 
+exports.post = function(req, res, next) {
+  var user = req.body;
+  console.log(user);
+  relational.setAuth(user, function (error, user) {
+    if (error) {
+      console.log(error);
+      var status = 500;
+      res.status(status).end(http.STATUS_CODES[status]);
+    } else {
+      res.end(JSON.stringify(user));
+    }
+  });
+}
+
 exports.postNamePasswordUser = function(req, res, next) {
   console.log('postNamePasswordUser');
   var name = req.body.name;

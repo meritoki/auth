@@ -6,6 +6,33 @@ var client = require('./object/client.js');
 var code = require('./object/code.js');
 var token = require('./object/token.js');
 
+exports.setAuth = function(u, callback) {
+  if (typeof u !== "undefined") {
+    bcrypt.hash(u.password, 10, function (err, passwordhash) {
+      if (err) throw err;
+      u.password = passwordhash;
+      database.getQueryResult(sql.insertUser(u), function(err, result, fields) {
+        if (err) {
+          return callback(err, null);
+        }
+        u = null;
+        if (result !== undefined && result != null && result.length > 0) {
+          u = new user();
+          u.idUser = result[5][0].idUser;
+          u.idAccount = result[5][0].idAccount;
+          u.role = result[5][0].role;
+          u.name = result[5][0].name;
+          u.password = result[5][0].password;
+        } else {
+          return callback(new Error("user is null"), null);
+        }
+        return callback(null, u);
+      });
+    });
+  } else {
+    callback(new Error("typeof user === \"undefined\""), null);
+  }
+}
 
 exports.getNamePasswordUser = function(name, password, callback) {
   console.log("relational.getNamePasswordUser")

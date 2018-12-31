@@ -36,6 +36,16 @@ exports.insertCode = function (value, idClient, idUser, redirectURI) {
     return 'INSERT INTO auth.`Code` (value,idClient,idUser,redirectURI) VALUES (\'' + value + '\',' + idClient + ',' + idUser + ',\'' + redirectURI + '\');';
 }
 
-exports.deleteCode = function (key) {
-    return 'DELETE FROM `Code` where value=\'' + key + '\';';
+exports.deleteCode = function (value) {
+    return 'DELETE FROM `Code` where value=\'' + value + '\';';
+}
+
+exports.insertUser = function(user) {
+    var sql ="INSERT INTO auth.Account (`uuid`) VALUES (uuid());";
+    sql += "SET @idAccount = LAST_INSERT_ID();"
+    sql+= "INSERT INTO auth.User (idAccount, name, password,role,`uuid`) VALUES (@idAccount, \""+user.name+"\", \""+user.password+"\", \""+user.role+"\", uuid());";
+    sql += "COMMIT;";
+    sql += "SET @idUser=LAST_INSERT_ID();"
+    sql += "SELECT id AS idUser, idAccount, role, password, name FROM auth.User where id=@idUser;";
+    return sql;
 }
