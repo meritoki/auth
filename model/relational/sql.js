@@ -1,5 +1,5 @@
 exports.selectNameUser = function (name) {
-    return 'SELECT u.id, u.idAccount, u.name, u.password, u.registerDate, u.activityDate, u.login, u.role FROM auth.User u  WHERE name = \'' + name + '\';';
+    return 'SELECT u.id, u.idAccount, u.name, u.password, u.registerDate, u.activityDate, u.login, u.role, u.active FROM auth.User u  WHERE name = \'' + name + '\';';
 };
 
 exports.updateUserLogin = function (user) {
@@ -43,9 +43,9 @@ exports.deleteCode = function (value) {
 exports.insertUser = function(user) {
     var sql ="INSERT INTO auth.Account (`uuid`) VALUES (uuid());";
     sql += "SET @idAccount = LAST_INSERT_ID();"
-    sql+= "INSERT INTO auth.User (idAccount, name, password,role,`uuid`) VALUES (@idAccount, \""+user.name+"\", \""+user.password+"\", \""+user.role+"\", uuid());";
+    sql+= "INSERT INTO auth.User (idAccount, name, password,role,`uuid`,active) VALUES (@idAccount, \""+user.name+"\", \""+user.password+"\", \""+user.role+"\", uuid(),0);";
     sql += "COMMIT;";
     sql += "SET @idUser=LAST_INSERT_ID();"
-    sql += "SELECT id AS idUser, idAccount, role, password, name FROM auth.User where id=@idUser;";
+    sql += "SELECT id AS idUser, idAccount, role, password, name, active FROM auth.User where id=@idUser;";
     return sql;
 }

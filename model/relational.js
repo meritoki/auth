@@ -23,6 +23,7 @@ exports.setAuth = function(u, callback) {
           u.role = result[5][0].role;
           u.name = result[5][0].name;
           u.password = result[5][0].password;
+          u.active = result[5][0].active;
         } else {
           return callback(new Error("user is null"), null);
         }
@@ -73,6 +74,7 @@ exports.getNameUser = function(name, callback) {
         u.email = result[0].email;
         u.role = result[0].role;
         u.password = result[0].password;
+        u.active = result[0].active;
       } else {
         return callback(new Error("user is null"), null);
       }
