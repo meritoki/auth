@@ -7,7 +7,7 @@
 var properties = {}
 
 properties.name = "auth";
-properties.version = "0.1";
+properties.version = "0.2";
 properties.port = {};
 properties.port.http = '3000';
 properties.port.https = '8443';
