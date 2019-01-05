@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  triggers{ cron('H/15 * * * *') }
   stages {
     stage('Build') {
       steps {
@@ -28,5 +27,8 @@ pipeline {
         sh 'sudo docker run --network host -dlt --restart unless-stopped -p 3000:3000 dailybread/auth-service'
       }
     }
+  }
+  triggers {
+    cron('H/15 * * * *')
   }
 }
