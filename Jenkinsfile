@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage('Back-end') {
+    stage('Build') {
       agent {
         dockerfile {
           filename 'Dockerfile'
@@ -12,7 +12,7 @@ pipeline {
         sh 'npm -v'
       }
     }
-    stage('Front-end') {
+    stage('Test') {
       agent {
         dockerfile {
           filename 'postman/Dockerfile'
