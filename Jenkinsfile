@@ -16,7 +16,7 @@ pipeline {
     stage('Deploy') {
       steps {
         sh 'mkdir -p /home/jorodriguez/meritoki/dailybread/'
-        sh 'rm -r auth'
+        sh 'rm -rf auth'
         sh 'git clone https://github.com/meritoki/auth.git'
         sh 'cd auth'
         sh 'git checkout dev'
