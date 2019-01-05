@@ -13,5 +13,14 @@ pipeline {
         sh 'newman run ./postman/daily-bread-auth-service.postman_collection.json --reporters cli,junit --reporter-junit-export newman.xml --insecure'
       }
     }
+    stage('Deploy') {
+      steps {
+        sh 'mkdir -p /home/jorodriguez/meritoki/dailybread/'
+        sh 'git clone https://github.com/meritoki/auth.git'
+        sh 'cd auth'
+        sh 'docker build -t dailybread/auth-service .'
+        sh 'sudo docker run --network host -dlt --restart unless-stopped -p 3000:3000 dailybread/auth-service'
+      }
+    }
   }
 }
