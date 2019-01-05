@@ -24,6 +24,7 @@ pipeline {
         sh 'git checkout 0.2 '
         sh 'docker build -t dailybread/auth-service .'
         sh 'sudo docker run --network host -dlt --restart unless-stopped -p 3000:3000 dailybread/auth-service'
+        sh 'git branch -a'
       }
     }
   }
