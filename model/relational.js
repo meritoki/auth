@@ -6,6 +6,17 @@ var client = require('./object/client.js');
 var code = require('./object/code.js');
 var token = require('./object/token.js');
 
+var valid = function(value) {
+  var boolean = true;
+  if (typeof value === "undefined") {
+    boolean = false;
+  }
+  if(value == null) {
+    boolean = false;
+  }
+  return boolean;
+};
+
 exports.setAuth = function(u, callback) {
   if (typeof u !== "undefined") {
     bcrypt.hash(u.password, 10, function (err, passwordhash) {
@@ -108,21 +119,20 @@ exports.getClient = function(identification, callback) {
 
 exports.getIDUser = function(id, callback) {
   console.log('relational.getIDUser ' + id);
-  if (typeof id !== "undefined") {
+  if (valid(id)) {
     database.getQueryResult(sql.selectIDUser(id), function(err, result) {
-      if (err) throw err;
+      if (err) {
+        return callback(err, null);
+      }
+      u = new user();
       if (result !== undefined && result != null && result.length > 0) {
-        u = new user();
         u.idUser = result[0].id;
         u.name = result[0].name;
         u.email = result[0].email;
         u.role = result[0].role;
         u.password = result[0].password;
-        return callback(err, u);
-      } else {
-        return callback(err, null);
       }
-
+      return callback(null, u);
     });
   } else {
     return callback(new Error("typeof id === \"undefined\""), null);
