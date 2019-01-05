@@ -17,15 +17,14 @@ pipeline {
       steps {
         sh 'mkdir -p /home/jorodriguez/meritoki/dailybread/'
         sh 'sudo rm -rf auth'
-        sh 'sudo git clone https://github.com/meritoki/auth.git'
+        sh 'sudo git clone -b dev https://github.com/meritoki/auth.git'
         sh 'cd auth'
         sh 'git remote update'
         sh 'git fetch'
         sh 'git branch -a'
-        sh 'git checkout 0.2 '
+        sh 'git status'
         sh 'docker build -t dailybread/auth-service .'
         sh 'sudo docker run --network host -dlt --restart unless-stopped -p 3000:3000 dailybread/auth-service'
- 
       }
     }
   }
