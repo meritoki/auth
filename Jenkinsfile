@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         sh 'npm install'
-        sh 'node index.js &'
+        sh 'JENKINS_NODE_COOKIE=dontKillMe node index.js &'
       }
     }
     stage('Test') {
