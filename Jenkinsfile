@@ -11,8 +11,11 @@ pipeline {
             }
         }
         stage('Front-end') {
-            agent none
+            agent {
+		docker { image 'node:7-alpine' }
+	    }
             steps {
+		sh 'npm install newman -g'
                 sh 'newman run ./postman/daily-bread-auth-service.postman_collection.json --reporters cli,junit --reporter-junit-export newman.xml --insecure'
             }
         }
