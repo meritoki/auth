@@ -6,10 +6,11 @@ pipeline {
         dockerfile {
           filename 'Dockerfile'
         }
-
       }
       steps {
-        sh 'npm -v'
+	docker.image('dailybread/auth-service').run {
+           sh 'npm -v'
+	}
       }
     }
     stage('Test') {
