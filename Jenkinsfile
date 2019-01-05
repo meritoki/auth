@@ -20,7 +20,7 @@ pipeline {
 
       }
       steps {
-        sh 'npm install newman -g'
+        sh 'npm install newman'
         sh 'newman run ./postman/daily-bread-auth-service.postman_collection.json --reporters cli,junit --reporter-junit-export newman.xml --insecure'
       }
     }
