@@ -19,8 +19,9 @@ pipeline {
         sh 'rm -rf auth'
         sh 'git clone https://github.com/meritoki/auth.git'
 	sh 'cd auth'
+	sh 'git remote update'
 	sh 'git fetch'
-        sh 'git checkout dev'
+        sh 'git checkout --track origin/dev'
         sh 'docker build -t dailybread/auth-service .'
         sh 'sudo docker run --network host -dlt --restart unless-stopped -p 3000:3000 dailybread/auth-service'
       }
