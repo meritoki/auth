@@ -15,7 +15,7 @@ pipeline {
     stage('Front-end') {
       agent {
         dockerfile {
-          filename 'postname/Dockerfile'
+          filename 'postman/Dockerfile'
         }
 
       }
