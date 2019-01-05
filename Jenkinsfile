@@ -1,10 +1,10 @@
 pipeline {
-  agent none
+  agent any
   stages {
     stage('Build') {
       steps {
         sh 'npm install'
-        sh 'node index.js'
+        sh 'node index.js &'
       }
     }
     stage('Test') {
