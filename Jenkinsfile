@@ -21,7 +21,7 @@ pipeline {
         sh 'cd auth'
         sh 'git remote update'
         sh 'git fetch'
-        sh 'git status'
+        sh 'sudo git checkout dev'
         sh 'docker build -t dailybread/auth-service .'
         sh 'sudo docker run --network host -dlt --restart unless-stopped -p 3000:3000 dailybread/auth-service'
       }
