@@ -7,9 +7,6 @@
   "scripts": {
     "test": "node controller/web.js"
   },
-  "scripts": {
-    "newman-tests": "newman run ./postman/auth.postman_collection.json --reporters cli,junit --reporter-junit-export newman.xml --insecure"
-  },
   "author": "Joaquin Osvaldo Rodriguez",
   "license": "BSD-2-Clause",
   "dependencies": {
