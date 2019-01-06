@@ -19,8 +19,6 @@ pipeline {
         sh 'sudo rm -rf auth'
         sh 'sudo git clone -b dev https://github.com/meritoki/auth.git'
         sh 'cd auth'
-        sh 'git remote update'
-        sh 'git fetch'
         sh 'git branch -a'
         sh 'git status'
         sh 'docker stop auth-service || true && docker rm auth-service || true'
